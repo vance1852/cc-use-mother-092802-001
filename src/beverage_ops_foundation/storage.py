@@ -76,6 +76,9 @@ class Database:
         self.connection.execute("PRAGMA foreign_keys = ON")
         self.connection.execute("PRAGMA busy_timeout = 5000")
         self.connection.executescript(SCHEMA)
+        from .release.schema import RELEASE_SCHEMA
+
+        self.connection.executescript(RELEASE_SCHEMA)
 
     @contextmanager
     def transaction(self, immediate: bool = False) -> Iterator[sqlite3.Connection]:
